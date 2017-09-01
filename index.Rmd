@@ -3,24 +3,20 @@ title: "SQL"
 output: html_document
 ---
 
-# This is a level one header.
-## This is a level two header.
-### This is a level three header.
+## Filtering rows and columns
 
-For paragraphs, you don't need anything special.
+In sql you can filter rows by using WHERE and columns by using SELECT. Let's look at an example using the Lahman basebal database. First, we should load the Lahman package and the sqldf package. 
 
-* item 1
-* item 2
-* item 3
-* item 4
+```{r message=FALSE, warning=FALSE}
+library(Lahman)
+library(sqldf)
+```
 
-Column 1 | Column 2
------|-----
-Phillies | National
-Yankees | American
-Cubs | National
-Red Sox | American
+Let's take a look at an example. If we want to see the homerun totals for the 1927 yankees. We could write:
 
+```{r}
+query<-"SELECT playerID,teamID,yearID,HR FROM Batting
+WHERE teamID='NYA' and yearID=1927"
+sqldf(query)
+```
 
-
-<img src="fox.jpg" width="300" />
