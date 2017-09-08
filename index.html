@@ -125,7 +125,10 @@ $(document).ready(function () {
 <p>In sql you can filter rows by using WHERE and columns by using SELECT. Let’s look at an example using the Lahman basebal database. First, we should load the Lahman package and the sqldf package.</p>
 <pre class="r"><code>library(Lahman)
 library(sqldf)</code></pre>
-<p>Let’s take a look at an example. If we want to see the homerun totals for the 1927 yankees. We could write:</p>
+<pre><code>## Loading required package: gsubfn</code></pre>
+<pre><code>## Loading required package: proto</code></pre>
+<pre><code>## Loading required package: RSQLite</code></pre>
+<p>``` Let’s take a look at an example. If we want to see the homerun totals for the 1927 yankees. We could write:</p>
 <pre class="r"><code>query&lt;-&quot;SELECT playerID,teamID,yearID,HR FROM Batting
 WHERE teamID='NYA' and yearID=1927&quot;
 sqldf(query)</code></pre>
@@ -155,6 +158,97 @@ sqldf(query)</code></pre>
 ## 23 shockur01    NYA   1927  0
 ## 24 thomamy01    NYA   1927  0
 ## 25  weraju01    NYA   1927  1</code></pre>
+</div>
+<div id="section" class="section level1">
+<h1>—————————————————</h1>
+<p>Find all instances where the Yankees have 40 homeruns or more.</p>
+<pre class="r"><code>query&lt;-&quot;SELECT teamID, playerID, yearID, HR FROM Batting
+WHERE teamID='NYA' and HR&gt;=40&quot;
+sqldf(query)</code></pre>
+<pre><code>##    teamID  playerID yearID HR
+## 1     NYA  ruthba01   1920 54
+## 2     NYA  ruthba01   1921 59
+## 3     NYA  ruthba01   1923 41
+## 4     NYA  ruthba01   1924 46
+## 5     NYA  ruthba01   1926 47
+## 6     NYA gehrilo01   1927 47
+## 7     NYA  ruthba01   1927 60
+## 8     NYA  ruthba01   1928 54
+## 9     NYA  ruthba01   1929 46
+## 10    NYA gehrilo01   1930 41
+## 11    NYA  ruthba01   1930 49
+## 12    NYA gehrilo01   1931 46
+## 13    NYA  ruthba01   1931 46
+## 14    NYA  ruthba01   1932 41
+## 15    NYA gehrilo01   1934 49
+## 16    NYA gehrilo01   1936 49
+## 17    NYA dimagjo01   1937 46
+## 18    NYA mantlmi01   1956 52
+## 19    NYA mantlmi01   1958 42
+## 20    NYA mantlmi01   1960 40
+## 21    NYA mantlmi01   1961 54
+## 22    NYA marisro01   1961 61
+## 23    NYA jacksre01   1980 41
+## 24    NYA martiti02   1997 44
+## 25    NYA giambja01   2002 41
+## 26    NYA giambja01   2003 41
+## 27    NYA rodrial01   2005 48
+## 28    NYA rodrial01   2007 54
+## 29    NYA grandcu01   2011 41
+## 30    NYA grandcu01   2012 43</code></pre>
+</div>
+<div id="section-1" class="section level1">
+<h1>—————————————————</h1>
+<p>Find all instances where a player had more than 40 homeruns and less than 60 strikeouts.</p>
+<pre class="r"><code>query&lt;-&quot;SELECT teamID, playerID, yearID, HR, SO FROM Batting
+WHERE HR&gt;40 and SO&lt;60&quot;
+sqldf(query)</code></pre>
+<pre><code>##    teamID  playerID yearID HR SO
+## 1     SLN hornsro01   1922 42 50
+## 2     PHI willicy01   1923 41 57
+## 3     NY1   ottme01   1929 42 38
+## 4     NYA gehrilo01   1931 46 56
+## 5     NYA  ruthba01   1931 46 51
+## 6     NYA gehrilo01   1934 49 31
+## 7     NYA gehrilo01   1936 49 46
+## 8     CLE troskha01   1936 42 58
+## 9     NYA dimagjo01   1937 46 37
+## 10    SLN  mizejo01   1940 43 49
+## 11    NY1  mizejo01   1947 51 42
+## 12    BOS willite01   1949 43 48
+## 13    PIT kinerra01   1951 42 57
+## 14    BRO camparo01   1953 41 58
+## 15    CLE rosenal01   1953 43 48
+## 16    CIN kluszte01   1954 49 35
+## 17    NY1  mayswi01   1954 41 57
+## 18    CIN kluszte01   1955 47 40
+## 19    ML1 aaronha01   1957 44 58
+## 20    WS1 sievero01   1957 42 55
+## 21    ATL aaronha01   1969 44 47
+## 22    ATL aaronha01   1971 47 58
+## 23    CHA thomafr04   1993 41 54
+## 24    SFN bondsba01   2002 46 47
+## 25    SFN bondsba01   2003 45 58
+## 26    SFN bondsba01   2004 45 41
+## 27    SLN pujolal01   2004 46 52
+## 28    SLN pujolal01   2006 49 50</code></pre>
+</div>
+<div id="section-2" class="section level1">
+<h1>—————————————————</h1>
+<p>Find all instances where the Phillies in the 1970s hitting more than 30 homeruns.</p>
+<pre class="r"><code>query&lt;-&quot;SELECT teamID, playerID, yearID, HR FROM Batting 
+WHERE teamID='PHI' and HR&gt;30 and yearID&gt;=1970 and yearID&lt;=1979&quot;
+sqldf(query)</code></pre>
+<pre><code>##   teamID  playerID yearID HR
+## 1    PHI johnsde01   1971 34
+## 2    PHI schmimi01   1974 36
+## 3    PHI luzingr01   1975 34
+## 4    PHI schmimi01   1975 38
+## 5    PHI schmimi01   1976 38
+## 6    PHI luzingr01   1977 39
+## 7    PHI schmimi01   1977 38
+## 8    PHI luzingr01   1978 35
+## 9    PHI schmimi01   1979 45</code></pre>
 </div>
 
 

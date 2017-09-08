@@ -7,11 +7,12 @@ output: html_document
 
 In sql you can filter rows by using WHERE and columns by using SELECT. Let's look at an example using the Lahman basebal database. First, we should load the Lahman package and the sqldf package. 
 
-```{r message=FALSE, warning=FALSE}
+```{r}
 library(Lahman)
 library(sqldf)
 ```
 
+```
 Let's take a look at an example. If we want to see the homerun totals for the 1927 yankees. We could write:
 
 ```{r}
@@ -20,3 +21,29 @@ WHERE teamID='NYA' and yearID=1927"
 sqldf(query)
 ```
 
+# ---------------------------------------------------
+
+Find all instances where the Yankees have 40 homeruns or more.
+```{r}
+query<-"SELECT teamID, playerID, yearID, HR FROM Batting
+WHERE teamID='NYA' and HR>=40"
+sqldf(query)
+```
+
+# ---------------------------------------------------
+
+Find all instances where a player had more than 40 homeruns and less than 60 strikeouts.
+```{r}
+query<-"SELECT teamID, playerID, yearID, HR, SO FROM Batting
+WHERE HR>40 and SO<60"
+sqldf(query)
+```
+
+# ---------------------------------------------------
+ Find all instances where the Phillies in the 1970s hitting more than 30 homeruns.
+ 
+```{r}
+query<-"SELECT teamID, playerID, yearID, HR FROM Batting 
+WHERE teamID='PHI' and HR>30 and yearID>=1970 and yearID<=1979"
+sqldf(query)
+```
