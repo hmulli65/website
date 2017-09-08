@@ -123,11 +123,16 @@ $(document).ready(function () {
 <div id="filtering-rows-and-columns" class="section level2">
 <h2>Filtering rows and columns</h2>
 <p>In sql you can filter rows by using WHERE and columns by using SELECT. Let’s look at an example using the Lahman basebal database. First, we should load the Lahman package and the sqldf package.</p>
-<pre class="r"><code>library(Lahman)
-library(sqldf)</code></pre>
+<pre class="r"><code>library(Lahman)</code></pre>
+<pre><code>## Warning: package 'Lahman' was built under R version 3.4.1</code></pre>
+<pre class="r"><code>library(sqldf)</code></pre>
+<pre><code>## Warning: package 'sqldf' was built under R version 3.4.1</code></pre>
 <pre><code>## Loading required package: gsubfn</code></pre>
+<pre><code>## Warning: package 'gsubfn' was built under R version 3.4.1</code></pre>
 <pre><code>## Loading required package: proto</code></pre>
+<pre><code>## Warning: package 'proto' was built under R version 3.4.1</code></pre>
 <pre><code>## Loading required package: RSQLite</code></pre>
+<pre><code>## Warning: package 'RSQLite' was built under R version 3.4.1</code></pre>
 <p>``` Let’s take a look at an example. If we want to see the homerun totals for the 1927 yankees. We could write:</p>
 <pre class="r"><code>query&lt;-&quot;SELECT playerID,teamID,yearID,HR FROM Batting
 WHERE teamID='NYA' and yearID=1927&quot;
@@ -249,6 +254,52 @@ sqldf(query)</code></pre>
 ## 7    PHI schmimi01   1977 38
 ## 8    PHI luzingr01   1978 35
 ## 9    PHI schmimi01   1979 45</code></pre>
+<div id="order-by" class="section level2">
+<h2>ORDER BY</h2>
+<p>With SQL, you can also order the rows in the output. For example, suppose you wanted to see every instance of a player hitting more than 50 homeruns and you want the players with the most homeruns at the top you can do this in the following way:</p>
+<pre class="r"><code>query&lt;-&quot;SELECT teamID, playerID, yearID, HR FROM Batting
+WHERE HR&gt;50
+ORDER BY HR DESC&quot;
+
+sqldf(query)</code></pre>
+<pre><code>##    teamID  playerID yearID HR
+## 1     SFN bondsba01   2001 73
+## 2     SLN mcgwima01   1998 70
+## 3     CHN  sosasa01   1998 66
+## 4     SLN mcgwima01   1999 65
+## 5     CHN  sosasa01   2001 64
+## 6     CHN  sosasa01   1999 63
+## 7     NYA marisro01   1961 61
+## 8     NYA  ruthba01   1927 60
+## 9     NYA  ruthba01   1921 59
+## 10    PHA  foxxji01   1932 58
+## 11    DET greenha01   1938 58
+## 12    PHI howarry01   2006 58
+## 13    ARI gonzalu01   2001 57
+## 14    TEX rodrial01   2002 57
+## 15    CHN wilsoha01   1930 56
+## 16    SEA griffke02   1997 56
+## 17    SEA griffke02   1998 56
+## 18    NYA  ruthba01   1920 54
+## 19    NYA  ruthba01   1928 54
+## 20    PIT kinerra01   1949 54
+## 21    NYA mantlmi01   1961 54
+## 22    BOS ortizda01   2006 54
+## 23    NYA rodrial01   2007 54
+## 24    TOR bautijo02   2010 54
+## 25    BAL davisch02   2013 53
+## 26    NYA mantlmi01   1956 52
+## 27    SFN  mayswi01   1965 52
+## 28    CIN fostege01   1977 52
+## 29    OAK mcgwima01   1996 52
+## 30    TEX rodrial01   2001 52
+## 31    CLE thomeji01   2002 52
+## 32    PIT kinerra01   1947 51
+## 33    NY1  mizejo01   1947 51
+## 34    NY1  mayswi01   1955 51
+## 35    DET fieldce01   1990 51
+## 36    ATL jonesan01   2005 51</code></pre>
+</div>
 </div>
 
 
