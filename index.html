@@ -321,6 +321,7 @@ sqldf(query)</code></pre>
 <div id="aggregation" class="section level2">
 <h2>Aggregation</h2>
 <p>Aggregation allows you to group the information. It is done with the GROUP BY command. If you wanted to add a WHERE clause for within the group you must use the command HAVING after the GROUP BY command. Some important commands that also fall under this category include sum( ), avg( ), max( ), and min( ). Bellow are some examples:</p>
+<p>What is the total homeruns of Babe ruth?</p>
 <pre class="r"><code>query&lt;-&quot;SELECT playerID, sum(HR) FROM Batting 
 WHERE playerID='ruthba01'
 GROUP BY playerID&quot;
