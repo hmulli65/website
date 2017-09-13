@@ -46,6 +46,7 @@ WHERE teamID='PHI' and HR>30 and yearID>=1970 and yearID<=1979"
 sqldf(query)
 ```
 #--------------------------------------------------------------
+
 ## Order By
 In SQL you can order things by using the ORDER BY command. This will always be the last command. Bellow is an example:
 
@@ -116,7 +117,7 @@ ORDER BY HR DESC"
 sqldf(query)
 ```
 
-Babe Ruth with playerID, team name, yearID, and homeruns.
+Babe Ruth with playerID, team name, yearID, and homeruns. For this example we must join the tables at two spots otherwise there will be repeats.
 ```{r}
 query<-"SELECT playerID, name, Batting.yearID, Batting.HR
 FROM Batting INNER JOIN Teams

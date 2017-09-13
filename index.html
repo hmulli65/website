@@ -365,6 +365,115 @@ sqldf(query)</code></pre>
 ## 13 abreujo02 30.33333</code></pre>
 </div>
 </div>
+<div id="section-2" class="section level1">
+<h1>————————————————————-</h1>
+<div id="joins" class="section level2">
+<h2>Joins</h2>
+<p>The commands used for this action include INNER JOIN and ON. INNER JOIN allows you to connect two seperate tables. ON tells the program how to connect them.</p>
+<p>Find the first and last name, along with team, year, and homeruns. The only player should be Babe Ruth.</p>
+<pre class="r"><code>query&lt;-&quot;SELECT nameFirst, nameLast, teamID, yearID, HR
+FROM Batting INNER JOIN Master
+ON Batting.playerID=Master.playerID
+WHERE Batting.playerID='ruthba01'&quot;
+sqldf(query)</code></pre>
+<pre><code>##    nameFirst nameLast teamID yearID HR
+## 1       Babe     Ruth    BOS   1914  0
+## 2       Babe     Ruth    BOS   1915  4
+## 3       Babe     Ruth    BOS   1916  3
+## 4       Babe     Ruth    BOS   1917  2
+## 5       Babe     Ruth    BOS   1918 11
+## 6       Babe     Ruth    BOS   1919 29
+## 7       Babe     Ruth    NYA   1920 54
+## 8       Babe     Ruth    NYA   1921 59
+## 9       Babe     Ruth    NYA   1922 35
+## 10      Babe     Ruth    NYA   1923 41
+## 11      Babe     Ruth    NYA   1924 46
+## 12      Babe     Ruth    NYA   1925 25
+## 13      Babe     Ruth    NYA   1926 47
+## 14      Babe     Ruth    NYA   1927 60
+## 15      Babe     Ruth    NYA   1928 54
+## 16      Babe     Ruth    NYA   1929 46
+## 17      Babe     Ruth    NYA   1930 49
+## 18      Babe     Ruth    NYA   1931 46
+## 19      Babe     Ruth    NYA   1932 41
+## 20      Babe     Ruth    NYA   1933 34
+## 21      Babe     Ruth    NYA   1934 22
+## 22      Babe     Ruth    BSN   1935  6</code></pre>
+<p>Find all instances of players hitting more than 50 homeruns. Include first name, last name, team, year, and homeruns. Order them from greates homeruns to least.</p>
+<pre class="r"><code>query&lt;-&quot;SELECT nameFirst, nameLast, teamID, yearID, HR
+FROM Batting INNER JOIN Master
+ON Batting.playerID=Master.playerID
+WHERE HR&gt;50
+ORDER BY HR DESC&quot;
+sqldf(query)</code></pre>
+<pre><code>##    nameFirst  nameLast teamID yearID HR
+## 1      Barry     Bonds    SFN   2001 73
+## 2       Mark   McGwire    SLN   1998 70
+## 3      Sammy      Sosa    CHN   1998 66
+## 4       Mark   McGwire    SLN   1999 65
+## 5      Sammy      Sosa    CHN   2001 64
+## 6      Sammy      Sosa    CHN   1999 63
+## 7      Roger     Maris    NYA   1961 61
+## 8       Babe      Ruth    NYA   1927 60
+## 9       Babe      Ruth    NYA   1921 59
+## 10    Jimmie      Foxx    PHA   1932 58
+## 11      Hank Greenberg    DET   1938 58
+## 12      Ryan    Howard    PHI   2006 58
+## 13      Luis  Gonzalez    ARI   2001 57
+## 14      Alex Rodriguez    TEX   2002 57
+## 15      Hack    Wilson    CHN   1930 56
+## 16       Ken   Griffey    SEA   1997 56
+## 17       Ken   Griffey    SEA   1998 56
+## 18      Babe      Ruth    NYA   1920 54
+## 19      Babe      Ruth    NYA   1928 54
+## 20     Ralph     Kiner    PIT   1949 54
+## 21    Mickey    Mantle    NYA   1961 54
+## 22     David     Ortiz    BOS   2006 54
+## 23      Alex Rodriguez    NYA   2007 54
+## 24      Jose  Bautista    TOR   2010 54
+## 25     Chris     Davis    BAL   2013 53
+## 26    Mickey    Mantle    NYA   1956 52
+## 27    Willie      Mays    SFN   1965 52
+## 28    George    Foster    CIN   1977 52
+## 29      Mark   McGwire    OAK   1996 52
+## 30      Alex Rodriguez    TEX   2001 52
+## 31       Jim     Thome    CLE   2002 52
+## 32     Ralph     Kiner    PIT   1947 51
+## 33    Johnny      Mize    NY1   1947 51
+## 34    Willie      Mays    NY1   1955 51
+## 35     Cecil   Fielder    DET   1990 51
+## 36    Andruw     Jones    ATL   2005 51</code></pre>
+<p>Babe Ruth with playerID, team name, yearID, and homeruns.</p>
+<pre class="r"><code>query&lt;-&quot;SELECT playerID, name, Batting.yearID, Batting.HR
+FROM Batting INNER JOIN Teams
+ON Batting.teamID=Teams.teamID and Batting.yearID=Teams.yearID
+WHERE playerID='ruthba01'&quot;
+sqldf(query)</code></pre>
+<pre><code>##    playerID             name yearID HR
+## 1  ruthba01   Boston Red Sox   1914  0
+## 2  ruthba01   Boston Red Sox   1915  4
+## 3  ruthba01   Boston Red Sox   1916  3
+## 4  ruthba01   Boston Red Sox   1917  2
+## 5  ruthba01   Boston Red Sox   1918 11
+## 6  ruthba01   Boston Red Sox   1919 29
+## 7  ruthba01 New York Yankees   1920 54
+## 8  ruthba01 New York Yankees   1921 59
+## 9  ruthba01 New York Yankees   1922 35
+## 10 ruthba01 New York Yankees   1923 41
+## 11 ruthba01 New York Yankees   1924 46
+## 12 ruthba01 New York Yankees   1925 25
+## 13 ruthba01 New York Yankees   1926 47
+## 14 ruthba01 New York Yankees   1927 60
+## 15 ruthba01 New York Yankees   1928 54
+## 16 ruthba01 New York Yankees   1929 46
+## 17 ruthba01 New York Yankees   1930 49
+## 18 ruthba01 New York Yankees   1931 46
+## 19 ruthba01 New York Yankees   1932 41
+## 20 ruthba01 New York Yankees   1933 34
+## 21 ruthba01 New York Yankees   1934 22
+## 22 ruthba01    Boston Braves   1935  6</code></pre>
+</div>
+</div>
 
 
 
