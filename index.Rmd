@@ -92,3 +92,37 @@ ORDER BY avg(HR) DESC"
 sqldf(query)
 ```
 
+#-------------------------------------------------------------
+
+##Joins
+The commands used for this action include INNER JOIN and ON. INNER JOIN allows you to connect two seperate tables. ON tells the program how to connect them.
+
+Find the first and last name, along with team, year, and homeruns. The only player should be Babe Ruth.
+```{r}
+query<-"SELECT nameFirst, nameLast, teamID, yearID, HR
+FROM Batting INNER JOIN Master
+ON Batting.playerID=Master.playerID
+WHERE Batting.playerID='ruthba01'"
+sqldf(query)
+```
+
+Find all instances of players hitting more than 50 homeruns. Include first name, last name, team, year, and homeruns. Order them from greates homeruns to least.
+```{r}
+query<-"SELECT nameFirst, nameLast, teamID, yearID, HR
+FROM Batting INNER JOIN Master
+ON Batting.playerID=Master.playerID
+WHERE HR>50
+ORDER BY HR DESC"
+sqldf(query)
+```
+
+Babe Ruth with playerID, team name, yearID, and homeruns.
+```{r}
+query<-"SELECT playerID, name, Batting.yearID, Batting.HR
+FROM Batting INNER JOIN Teams
+ON Batting.teamID=Teams.teamID and Batting.yearID=Teams.yearID
+WHERE playerID='ruthba01'"
+sqldf(query)
+```
+
+
