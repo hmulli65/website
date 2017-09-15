@@ -136,7 +136,7 @@ WHERE Batting.playerID='ruthba01'"
 sqldf(query)
 ```
 
-Lets get the career
+Lets get the career homerun totals for players. Limit the display to just those that hit at least 600 homeruns. Highest homerun total at the top. Include first and last names.
 
 ```{r}
 query<-"SELECT nameFirst, nameLast, sum(HR)
@@ -148,7 +148,7 @@ ORDER BY sum(HR) DESC"
 sqldf(query)
 ```
 
-
+List all players with the first name Bob who averaged more than one million dollars in salary over their career. Include the last name.
 ```{r}
 query<-"SELECT nameFirst, nameLast, avg(salary)
 From (Batting INNER JOIN Master
