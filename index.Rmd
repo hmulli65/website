@@ -126,4 +126,36 @@ WHERE playerID='ruthba01'"
 sqldf(query)
 ```
 
+Babe Ruth: first and last name, team name, yearID, and homeruns.
+```{r}
+query<-"SELECT nameFirst, nameLast, name, Batting.yearID, Batting.HR 
+FROM (Batting INNER JOIN Master
+ON Batting.playerID=Master.playerID) INNER JOIN Teams
+ON Batting.teamID=Teams.teamID AND Batting.yearID=Teams.yearID
+WHERE Batting.playerID='ruthba01'"
+sqldf(query)
+```
+
+Lets get the career
+
+```{r}
+query<-"SELECT nameFirst, nameLast, sum(HR)
+FROM Batting INNER JOIN Master
+ON Batting.playerID=Master.playerID
+GROUP BY Batting.playerID
+HAVING sum(HR)>=600
+ORDER BY sum(HR) DESC"
+sqldf(query)
+```
+
+
+```{r}
+query<-"SELECT nameFirst, nameLast, avg(salary)
+From (Batting INNER JOIN Master
+ON Batting.playerID=Master.playerID) INNER JOIN Salaries
+ON Batting.playerID=Salaries.playerID
+GROUP BY Batting.playerID
+HAVING nameFirst='Bob' and avg(salary)>1000000"
+sqldf(query)
+```
 
